@@ -150,7 +150,7 @@ test_case_name = ${0##*/}
   idtgm       = 1             ! [1] (dtg=dtm/idtgc) dtg is time step of cond./depo.
   sigma0      = 0.62          ! kernel density estimation factor
   nclrate     = ${ncl}        ! [SP/s] num. new SP in 'nucleation zone' (1d-model)
-  nclmass     = ${nclmass} !1e-11         !1.30e-9  !should be 1...e-9 from Joses calculations       ! mean mass of particles after nucleation
+  nclmass     = ${nclmass}    !should be 1...e-9 from Joses calculations       ! mean mass of particles after nucleation
   rm          = ${wdm}        ! [m] mean droplet radius in the 1d-model ice particle riming 
   sp_vterm_id = ${vt}         ! 1:Heymsfield, 2:Khvorostyanov
   agg_hist    = -1            ! <0: no history, 0: history with near surface sampling, >0: history with the whole domain sampling

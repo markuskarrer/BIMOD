@@ -117,8 +117,6 @@ do
         python McSnow_dat2ncdf.py
     fi
 
-    #switch between different versions of adaption #this is not in the next if clause because it is also needed in the plotting routines
-    export adapt_version=3 #1-> histogram as input 2-> own category for each SP 3-> KDE as input
 
     if [[ "$execwhat" == *Pam1* ]] ; then #let PAMTRA run on output
         echo "############"
@@ -142,7 +140,7 @@ do
         
         export plot_totalice="False"
         python bimodalitystudy_DWRs.py
-        python plot_spectra_and_moments.py
+        #python plot_spectra_and_moments.py
 
     fi                 
 

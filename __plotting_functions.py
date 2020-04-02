@@ -372,8 +372,8 @@ def plot_waterfall(ax,pamData,freq=35.5,color='b',linestyle='-',vel_lim=[0,3],z_
         #plot the limits of the heights and label them with the corresponding dBz value
         ax.axhline(y=baseline,color='k',linestyle='--',linewidth=0.5)
     dBz_scale_xpos = 0.05
-    ax.text(dBz_scale_xpos,baseline+0.05*(topline-baseline),str(min_shown) + " dBz")
-    ax.text(dBz_scale_xpos,topline-0.15*(topline-baseline),str(dz_heights/mult_dBz+min_shown) + " dBz")
+    ax.text(dBz_scale_xpos+0.05,baseline+0.05*(topline-baseline),str(min_shown) + " dBz")
+    ax.text(dBz_scale_xpos+0.05,topline-0.15*(topline-baseline),str(dz_heights/mult_dBz+min_shown) + " dBz")
     
     ax.annotate(s='', xy=(dBz_scale_xpos,baseline), xytext=(dBz_scale_xpos,topline), arrowprops=dict(arrowstyle='<->'))
     #set range

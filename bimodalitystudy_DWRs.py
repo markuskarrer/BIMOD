@@ -24,7 +24,6 @@ experiment = os.environ["experiment"] #experiment name (this also contains a lot
 testcase = os.environ["testcase"] #ATTENTION: this is overwritten
 av_tstep = int(os.environ["av_tstep"]) #average window for the McSnow output
 MC_dir = os.environ["MCexp"]
-adapt_version = int(os.environ["adapt_version"]) #reading the files of the appropriate adaption version
 
 #directory of experiments
 directory = MC_dir + "/experiments/"
@@ -34,26 +33,13 @@ figsize_height = 6.0/2.0*(num_plots)
 fig	=	plt.figure(figsize=(8.0,figsize_height))#figsize=(4, 4))
 
 
-if "semiidealized" in os.environ:
-    height_bounds = __postprocess_McSnow.read_init_vals(MC_dir) #read the heights from the init_vals.txt file
-
-else: #no height limits if it is not run by the McSnow_Pamtra_ICONinit script
-    height_bounds = [5000,0] #set some default heigh-bounds
-
-#plot McSnow pamtra output
 ##############################
-#now: plot PAMTRA output 
+#plot McSnow pamtra output
 ##############################
 
 #define file to read
-print "adaptv:",adapt_version
-if adapt_version==1:
-    filename = "/adaptv1_t" + str(tstep) #+ ".nc"
-elif adapt_version==2:
-    filename = "/adaptv2_" + testcase + '_av_' + str(av_tstep) + '_' + experiment + "_t" + str(tstep).zfill(4) + 'min'
-elif adapt_version==3:
-    filename = "/adaptv3_" + testcase + '_av_' + str(av_tstep) + '_' + experiment + "_t" + str(tstep).zfill(4) + 'min'
-    
+filename = "/adaptv3_" + testcase + '_av_' + str(av_tstep) + '_' + experiment + "_t" + str(tstep).zfill(4) + 'min'
+
 pam_filestring = directory + experiment + filename +".nc"
 
 #read pamtra output to pamData dictionary
@@ -72,7 +58,8 @@ axDWR.set_ylabel("height [m]")
 
 
 axSpec = plt.subplot2grid((num_plots, 1), (2, 0))
-i_height = 0 #49 #around 5km-> -15degC #ATTENTION: change profile
+debug()
+i_height = 0 #around 5km-> -15degC #ATTENTION: change profile
 i_freq = 1 #Ka-Band
 #plot the spertrum
 axSpec.plot(-pamData["Radar_Velocity"][i_freq,:],pamData["Radar_Spectrum"][i_height,i_freq,:],label="forw op")

@@ -31,14 +31,10 @@ export OMP_NUM_THREADS=4
 dom_top="3850."  # [m]
 dom_bottom="0."
 nz=200          # number of vertical cells
-xi0=100000 #high conc"1000"  low_conc"20"     # [RP/SP]
+xi0=100 #high conc"1000"  low_conc"20"     # [RP/SP]
 dtc=5            # [s]
 nrp=2  #high conc"500"  low_conc"10"           # [1000 RP/m3]
-if [[ $7 -gt $6 ]]; then #if riming in setup
-	lwc="7"            # [1/10000 kg/m3]
-else
-	lwc="0"            # [1/10000 kg/m3]
-fi
+lwc="0"            # [1/10000 kg/m3]
 iwc="5" #high conc"10"   low_conc"1"          # [1/100000 kg/m3]
 box_area="500"   # [1/100 m2]
 wdm=10           # [10**-6 kg/m3]
@@ -142,12 +138,13 @@ test_case_name = ${0##*/}
   iwc_mode2         = 1.60e-05      ! [kg/m3] ice water content
   lwc0        = ${lwc}        ! [kg/m3] liquid water content in the 'LWC zone'
   nrp0        = ${nrp}        ! [1/m3] initial number density of ice particles
-  nrp0_mode2        = 0 !12289 !should be 12289  ! [1/m3] initial number density of ice particles
+  nrp0_mode2        = 0 !2mode is active via nucleation but switched off here!  ! [1/m3] initial number density of ice particles
   xi0         = ${xi0}        ! [1] number of RP per SP
   nu_gam      = 3.545           ! [1] gamma distribution exponent
   mu_gam      = 0.455           ! [1] generalized gamma distribution exponent 
   nu_gam_mode2      = -0.3564           ! [1] gamma distribution exponent
   mu_gam_mode2      =  0.495          ! [1] generalized gamma distribution exponent 
+  maxTotalNoSps = 10240000
   dtc         = ${dtc}        ! [s] time step of collision
   !idtmc       = 1             ! [1] (dtm=dtc/idtmc) dtm is time step of sedi.
   idtgm       = 1             ! [1] (dtg=dtm/idtgc) dtg is time step of cond./depo.

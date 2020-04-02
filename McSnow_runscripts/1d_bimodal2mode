@@ -48,9 +48,9 @@ fi
 ncl=$8            # [1/1000 SP/sm3 *30 because xi0*30 in mo_nucleation.f90] #this is per SP so define the RP by the scaling of ncl below #change it when you change xi0!! 
 nclmass=$9
 #ncl lower than 6 will fail because of FLOOR(nclrate * grid%dbox * dtc) in mo_sp_nml.f90
-vt=1             # terminal velocity: 1) Heymsfield, 2) Khvorostyanov
+vt=1             # terminal velocity: 1) Heymsfield, 2) Khvorostyanov 3) Boehm 
 geo=3            # snow geometry: 1: bulk, 2: fillin, 3: similarity
-agggeo=$5         # ! 1: M96 mixed agg, 2: MK96 plates + M96 mixed agg, 3: monomer dependent plates
+agggeo=$5         # ! 1: only aggregates, 2:Joses favorite monomers and aggregates, 3: monomer dependent plates (not really implemented here)
 if [[ "$agggeo" -eq 9999 ]] ; then agggeo=1 ; fi
 agg=2            # 0: no aggregation. 1: Golovin kernel 2: hydrodynamic kernel
 dep=1            # 0: no diffusion, 1: vapour diffusion

@@ -87,7 +87,7 @@ axswidth = __plotting_functions.plot_pamtra_highermoments(axswidth,pamData,lines
 axskewn = plt.subplot2grid((num_plots, 1), (3, 0))
 axskewn = __plotting_functions.plot_pamtra_highermoments(axskewn,pamData,linestyle='--',moment='skewn')
 
-
+'''
 #save figure
 plt.tight_layout()
 if not os.path.exists('/home/mkarrer/Dokumente/plots/overview_panel/' + experiment): #create direktory if it does not exists
@@ -97,45 +97,9 @@ plt.savefig('/home/mkarrer/Dokumente/plots/overview_panel/' + experiment + out_f
 plt.savefig('/home/mkarrer/Dokumente/plots/overview_panel/' + experiment + out_filestring + '.png', dpi=400)
 print 'The pdf is at: ' + '/home/mkarrer/Dokumente/plots/overview_panel/' + experiment + out_filestring + '.pdf'
 subprocess.Popen(['evince','/home/mkarrer/Dokumente/plots/overview_panel/' + experiment + out_filestring + '.pdf'])
-
+'''
 #plot spectrogram in new figure
 
 #plot spectrograms
 plt.clf() #clear figure
 
-
-'''
-for i_scheme,scheme in enumerate(["SB","MC"]):
-    if scheme=="SB":
-        #define file to read
-        pam_filestring = directory + experiment + "/PAMTRA_2mom_" + testcase + '_av_' + str(av_tstep) + '_' + experiment + "_t" + str(tstep).zfill(4) + 'min.nc'
-        #read pamtra output to pamData dictionary
-        pamData = __postprocess_PAMTRA.read_pamtra(pam_filestring)
-    elif scheme=="MC":
-        try:
-            if adapt_version==1:
-                filename = "/adaptv1_t" + str(tstep) #+ ".nc"
-            elif adapt_version==2:
-                filename = "/adaptv2_" + testcase + '_av_' + str(av_tstep) + '_' + experiment + "_t" + str(tstep).zfill(4) + 'min'
-            elif adapt_version==3:
-                filename = "/adaptv3_" + testcase + '_av_' + str(av_tstep) + '_' + experiment + "_t" + str(tstep).zfill(4) + 'min'
-                
-            pam_filestring = directory + experiment + filename +".nc"
-            pamData = __postprocess_PAMTRA.read_pamtra(pam_filestring)
-
-        except:
-            print "no spectral data found in:", pam_filestring, ". Is radar_mode set to simple?"
-            continue
-    #read pamtra output to pamData dictionary
-    number_of_spectrograms = 3*2 #3 frequency and two schemes (McSnow and SB)
-    for i_freq,freq in enumerate([9.6,35.5,95.0]):
-        ax = plt.subplot2grid((number_of_spectrograms, 1), (i_scheme*3+i_freq, 0))
-        ax = __plotting_functions.plot_pamtra_spectrogram(ax,pamData,freq=freq)
-        ax.set_ylim([height_bounds[1],height_bounds[0]]) #this might be the range from the initialization height to the maximum of the masses
-#plt.tight_layout()
-out_filestring = "/spectrogram_" + testcase + "_av_" + str(av_tstep) + "_t" + str(tstep).zfill(4) + 'min'
-plt.savefig('/home/mkarrer/Dokumente/plots/overview_panel/' + experiment + out_filestring + '.pdf', dpi=400)
-plt.savefig('/home/mkarrer/Dokumente/plots/overview_panel/' + experiment + out_filestring + '.png', dpi=400)
-print 'The pdf is at: ' + '/home/mkarrer/Dokumente/plots/overview_panel/' + experiment + out_filestring + '.pdf'
-subprocess.Popen(['evince','/home/mkarrer/Dokumente/plots/overview_panel/' + experiment + out_filestring + '.pdf'])
-'''

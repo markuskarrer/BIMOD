@@ -29,7 +29,8 @@ set -e #exit if error occurs
 
 #if cheops is shut down use old folder for tests
 export MC=/home/mkarrer/Dokumente/McSnow_bimodal/MCSNOW #TODO: REPLACE BY <MC_PATH>
-export MCexp=/data/optimice/McSnowoutput/BIMOD/ #TODO: THINK ABOUT THIS
+export PAM=/home/mkarrer/Dokumente/pamtra/ #TODO: REPLACE by <PAM_path>
+export MCexp=/data/optimice/McSnowoutput/BIMOD/ 
 export BIMOD=$(pwd -P) #current directory
 
 export depos_from0mto=0 # [100 m] 0 for SDA 10 for SDAdeposition and SDARdeposition
@@ -57,7 +58,9 @@ export model_setup="_" #dont mess with SB settings if you are not running SB
 export model_setup_specifier_onestring="_"
 for testcase in "${McSnow_testcase[@]}"
 do
+    ###########################################################
     #loop over different namelist settings (relevant for running McSnow not for plotting)
+    ##########################################################
     ssat_array=(0) #(0 10 20 30 40 50)  #supersaturation over ice: [1/1000] -> 1 is 0.001
     stick_array=(2) #sticking efficiency: 0: E_s=1, 1: PK97, 2: Connolly12, 3: 0.5*Connolly12
     ncl_array=(10) #(10 20 50) #nucleation rate [3/100 SP/sm3] #setting a high numer gets expensive (CPU-time and memory!); compensate this by a high multiplicity (xi0 in runscript: McSnow_runscripts/1d_bimodal2mode)
@@ -122,8 +125,8 @@ do
         echo "############"
         echo "run Pamtra"
         echo "############"
-
-        cd /home/mkarrer/Dokumente/pamtra/ #TODO: REPLACE by <PAM_path>
+        cp McSnow_adapt_bimodal.py $PAM
+        cd $PAM
         #run PAMTRA
         python McSnow_adapt_bimodal.py
     fi

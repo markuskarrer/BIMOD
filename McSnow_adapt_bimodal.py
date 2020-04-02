@@ -16,8 +16,7 @@ from netCDF4 import Dataset
 import __postprocess_McSnow
 import __general_utilities
 import __postprocess_SB
-sys.path.append("/home/mkarrer/Dokumente/pythoncode")
-a=0
+sys.path.append("<BIMOD-path>")
 import Jose_fromPyTmToMC
 #read variables passed by shell script
 tstep = int(os.environ["tstep"])
@@ -132,7 +131,7 @@ large_mode = mDAD['Aggregates_of_side_planes']
 fallsp_model='heymsfield10_particles' #'bohm_particles' #sys.exit(1)
 
 ###
-#handling the categories (TODO: until now just one)
+#handling the categories
 ###
 nbins = 100
 pam.df.addHydrometeor(("McSnowsmallice",  1.0,           -1,      -99,        -99,      -99,    -99,   -99,     13,              nbins,       'dummy',          -99.,    -99.,     -99.,   -99.,  -99.,    -99.        ,'ss-rayleigh-gans',  fallsp_model,        0.)) #add hydrometeors: see

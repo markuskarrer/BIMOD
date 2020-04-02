@@ -18,6 +18,10 @@ import sys
 import __plotting_functions
 import __postprocess_McSnow
 import __postprocess_PAMTRA
+def find_nearest(array, value):
+    array = np.asarray(array)
+    idx = (np.abs(array - value)).argmin()
+    return idx,array[idx]
 #read variables passed by shell script
 tstep = int(os.environ["tstep"])
 experiment = os.environ["experiment"] #experiment name (this also contains a lot of information about the run)
@@ -58,11 +62,13 @@ axDWR.set_ylabel("height [m]")
 
 
 axSpec = plt.subplot2grid((num_plots, 1), (2, 0))
-debug()
-i_height = 0 #around 5km-> -15degC #ATTENTION: change profile
+i_h_plot,h_plot = find_nearest(pamData["height"],3000)
+#debug()
+#i_eight = 0 #around 5km-> -15degC #ATTENTION: change profile
 i_freq = 1 #Ka-Band
 #plot the spertrum
-axSpec.plot(-pamData["Radar_Velocity"][i_freq,:],pamData["Radar_Spectrum"][i_height,i_freq,:],label="forw op")
+axSpec.plot(-pamData["Radar_Velocity"][i_freq,:],pamData["Radar_Spectrum"][i_h_plot,i_freq,:],label="forw op")
+axSpec.text(1,-45,"height=" + str(h_plot))
 #add observed spectrum
 selObsSpec = xr.open_dataset('/home/jdias/Projects/radarCode/tripexPolPro/selSpecDT.nc')
 axSpec.plot(selObsSpec.kaSpec.vel,selObsSpec.kaSpec,label="obs Ka")
@@ -78,6 +84,7 @@ plt.grid(which="both")
 
 #save figure
 plt.tight_layout()
+'''
 if not os.path.exists('/home/mkarrer/Dokumente/plots/4Jose_bimodality/' + experiment): #create direktory if it does not exists
     os.makedirs('/home/mkarrer/Dokumente/plots/4Jose_bimodality/' + experiment)
 out_filestring = "/" +testcase + "_av_" + str(av_tstep) + "_t" + str(tstep).zfill(4) + 'min'
@@ -85,4 +92,4 @@ plt.savefig('/home/mkarrer/Dokumente/plots/4Jose_bimodality/' + experiment + out
 plt.savefig('/home/mkarrer/Dokumente/plots/4Jose_bimodality/' + experiment + out_filestring + '.png', dpi=400)
 print 'The pdf is at: ' + '/home/mkarrer/Dokumente/plots/4Jose_bimodality/' + experiment + out_filestring + '.pdf'
 subprocess.Popen(['evince','/home/mkarrer/Dokumente/plots/4Jose_bimodality/' + experiment + out_filestring + '.pdf'])
-
+'''

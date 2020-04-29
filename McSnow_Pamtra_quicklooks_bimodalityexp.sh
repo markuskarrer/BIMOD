@@ -139,7 +139,7 @@ do
 
         #the next two lines I used for plotting McSnow model output  (if you need something like this just ask me, they are not clean, but we might get them running)
         #python overview_panel.py 
-        #python plot_fluxes_and_densities.py
+        python plot_fluxes_and_densities.py
         
         export plot_totalice="False"
         python bimodalitystudy_DWRs.py
